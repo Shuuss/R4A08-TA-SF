@@ -42,7 +42,7 @@ app.post('/tasks', async (req, res) => {
   const { description } = req.body;
   try {
     const result = await pool.query(
-      `INSERT INTO tasks (description, completed) VALUES (${description}, false) RETURNING *`
+      `INSERT INTO tasks (description, completed) VALUES ('${description}', false) RETURNING *`
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
