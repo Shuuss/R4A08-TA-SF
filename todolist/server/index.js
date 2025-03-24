@@ -51,12 +51,25 @@ app.post('/tasks', async (req, res) => {
   }
 });
 
+app.delete('/tasks/:id', async (req, res) => {
+  const { id } = req.params; // mettre :id dans la route signifie que c'est dynamique et on y récupère dans la constante id
+  try {
+    const result = await pool.query(
+      `DELETE FROM tasks WHERE idtask = ${id}`
+    );
+    res.status(204).json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error delete task');
+  }
+});
+
 // valider une tache
 app.put('/tasks/:id', async (req, res) => {
   const { id } = req.params; // mettre :id dans la route signifie que c'est dynamique et on y récupère dans la constante id
   try {
     const result = await pool.query(
-      `UPDATE tasks SET completed = true WHERE idtask = ${id} RETURNING *`
+      `UPDATE tasks SET completed = NOT completed WHERE idtask = ${id} RETURNING *`
     );
     if (result.rows.length > 0) {
       res.json(result.rows[0]);
