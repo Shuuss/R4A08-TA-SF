@@ -1,0 +1,1 @@
+https://gitlab.com/formations-kgaut/but-info/r4.a08/r4.a08-support-de-cours/-/blob/main/le-gros-sujet.md?ref_type=heads
